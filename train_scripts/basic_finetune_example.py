@@ -98,7 +98,8 @@ def SFT_data(adapter):
     tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME,padding_side='right',trust_remote_code=True,token=token)
     # Load base model
     model_base = AutoModelForCausalLM.from_pretrained(MODEL_NAME,device_map = 'auto', use_cache=False)
-    tokenizer.pad_token = tokenizer.eos_token
+    tokenizer.pad_token = "[PAD]"
+    tokenizer.pad_token_id = 6
     # Process training data
     datasets = process_datasets(data,tokenizer,max_rows = 400000)
     # Merge data if multiple files
@@ -127,6 +128,7 @@ def SFT_data(adapter):
         peft_model = aLoRAPeftModelForCausalLM(model_base, peft_config,response_token_ids = response_token_ids)
         trainer = SFTTrainer(
             peft_model,
+            processing_class=tokenizer,
             train_dataset=merged_dataset,
             args=SFTConfig(output_dir=OUT_PATH,num_train_epochs=3,learning_rate=6e-5,max_seq_length = 4096,per_device_train_batch_size = 1,save_strategy="no",gradient_accumulation_steps=8,fp16=True),
             formatting_func=formatting_prompts_func,
@@ -148,6 +150,7 @@ def SFT_data(adapter):
         peft_model = PeftModelForCausalLM(model_base, peft_config)
         trainer = SFTTrainer(
             peft_model,
+            processing_class=tokenizer,
             train_dataset=merged_dataset,
             args=SFTConfig(output_dir=OUT_PATH,num_train_epochs=3,learning_rate=6e-5,max_seq_length = 4096,per_device_train_batch_size = 1,save_strategy="no",gradient_accumulation_steps=8,fp16=True),
             formatting_func=formatting_prompts_func,
