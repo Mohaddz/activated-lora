@@ -11,7 +11,7 @@ from alora.config import aLoraConfig
 from peft import PeftModelForCausalLM, LoraConfig
 import json
 
-from transformers import AutoTokenizer, AutoModelForCausalLM, GenerationConfig
+from transformers import AutoTokenizer, AutoModelForCausalLM, GenerationConfig, TrainerCallback
 
 
 
