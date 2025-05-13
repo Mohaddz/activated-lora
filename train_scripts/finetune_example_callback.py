@@ -153,7 +153,7 @@ def SFT_data(adapter):
         peft_model = aLoRAPeftModelForCausalLM(model_base, peft_config,response_token_ids = response_token_ids)
         trainer = SFTTrainer(
             peft_model,
-            processing_class=tokenizer,
+            tokenizer=tokenizer,
             train_dataset=merged_dataset,
             eval_dataset=val_dataset,
             args=SFTConfig(output_dir=OUT_PATH,num_train_epochs=3,learning_rate=6e-5,max_seq_length = 4096,per_device_train_batch_size = 1,evaluation_strategy = "steps",
@@ -178,7 +178,7 @@ def SFT_data(adapter):
         peft_model = PeftModelForCausalLM(model_base, peft_config)
         trainer = SFTTrainer(
             peft_model,
-            processing_class=tokenizer,
+            tokenizer=tokenizer,
             train_dataset=merged_dataset,
             args=SFTConfig(output_dir=OUT_PATH,num_train_epochs=3,learning_rate=6e-5,max_seq_length = 4096,per_device_train_batch_size = 1,evaluation_strategy = "steps",
                 eval_steps=300,save_strategy="no",gradient_accumulation_steps=8,fp16=True),
