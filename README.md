@@ -4,7 +4,7 @@ Activated LoRA (aLoRA) is a new low rank adapter architecture that allows for re
 
 This repo contains source code necessary to both train and do inference with aLoRA models.
 
-Whitepaper: [`activated_LoRA.pdf`](activated_LoRA.pdf) for a detailed description of the method and some results.
+Whitepaper: [`activated_LoRA.pdf`](https://arxiv.org/abs/2504.12397) for a detailed description of the method and some results.
 
 IBM Research Blogpost: [`Inference Friendly aLoRAs`](https://research.ibm.com/blog/inference-friendly-aloras-lora)
 
