@@ -36,6 +36,7 @@ include = ["alora"]
 
 [tool.setuptools_scm]
 version_file = "alora/_version.py"
+local_scheme = "no-local-version"
 
 [project.urls]
 Homepage = "https://github.com/IBM/activated-lora"
