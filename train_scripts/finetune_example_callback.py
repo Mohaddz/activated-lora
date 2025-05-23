@@ -145,7 +145,7 @@ def SFT_data(adapter):
             bias="none",
             task_type="CAUSAL_LM",
             invocation_string=INVOCATION_PROMPT,
-            target_modules=["q_proj","k_proj", "v_proj"],#Important - aLoRA must only adapt q, k, v layers.
+            target_modules=["q_proj","k_proj", "v_proj"],
             #layers_to_transform=[38,39]
         )
         response_tokens = tokenizer(INVOCATION_PROMPT, return_tensors="pt", add_special_tokens=False)
