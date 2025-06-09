@@ -33,7 +33,7 @@ from peft.config import PeftConfig
 import enum
 from peft import (
     #LoraConfig,
-    #PeftModel,
+    PeftModel,
     #PeftModelForCausalLM,
     #PeftModelForSequenceClassification,
     get_peft_model,
@@ -148,7 +148,7 @@ PEFT_TYPE_TO_CONFIG_MAPPING: dict[str, type[PeftConfig]] = {
     #"CPT": CPTConfig,
     #"BONE": BoneConfig,
         }
-class PeftModel(PushToHubMixin, torch.nn.Module):
+class PeftModelALoRA(PeftModel):
     """
     Base model encompassing various Peft methods.
 
@@ -193,7 +193,7 @@ class PeftModel(PushToHubMixin, torch.nn.Module):
         low_cpu_mem_usage: bool = False,
         response_token_ids = None
     ) -> None:
-        super().__init__()
+        super().__init__(model, peft_config, adapter_name)
         self.modules_to_save = None
         self.active_adapter = adapter_name
         self.peft_type = peft_config.peft_type
@@ -1492,7 +1492,7 @@ class PeftModel(PushToHubMixin, torch.nn.Module):
 
 
 
-class aLoRAPeftModelForCausalLM(PeftModel):
+class aLoRAPeftModelForCausalLM(PeftModelALoRA):
     """
     Peft model for causal language modeling.
 
