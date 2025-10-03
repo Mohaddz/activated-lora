@@ -194,7 +194,7 @@ class PeftModelALoRA(PeftModel):
         response_token_ids = None
     ) -> None:
         super().__init__(model, peft_config, adapter_name)
-        self.modules_to_save = None
+        #self.modules_to_save = None
         self.active_adapter = adapter_name
         self.peft_type = peft_config.peft_type
         # These args are special PEFT arguments that users can pass. They need to be removed before passing them to
